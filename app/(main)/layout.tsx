@@ -33,7 +33,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
             <div className='w-full fixed top-0 h-24 z-50'>
                 <Navbar userId={userId} />
             </div>
-            <main className='h-full flex-1 pt-24 w-full'>
+            <main className='h-full flex-1 pt-24 w-full overflow-x-hidden'>
                 <div className='absolute top-0 w-full h-full'>
                     <Billboard film={film} />
                 </div>
