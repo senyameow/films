@@ -25,18 +25,18 @@ const Navbar = ({ userId }: NavbarProps) => {
     const isScrolled = useScrollTop()
 
     return (
-        <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition`, isScrolled && 'bg-zinc-900 bg-opacity-90')}>
-            <div className='flex flex-row items-center gap-3'>
+        <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition`, isScrolled && 'opacity-10')}>
+            < div className='flex flex-row items-center gap-3' >
                 <Link href='/films'><Logo className='text-2xl mr-8' /></Link>
                 <MainNav />
-            </div>
+            </div >
             <div className=' ml-auto flex items-center gap-4'>
                 <Search />
                 <Notifications />
                 <UserButton afterSignOutUrl='/' />
                 {user === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <div>{user?.name}</div>}
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -11,3 +11,10 @@ export const getUser = query({
         return user
     }
 })
+
+export const getRandomFilm = query({
+    handler: async (ctx) => {
+        const films = await ctx.db.query('films').take(1)
+        return films[0]
+    }
+})

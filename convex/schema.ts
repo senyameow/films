@@ -12,6 +12,7 @@ export default defineSchema({
     films: defineTable({
         title: v.string(),
         cover_url: v.string(),
+        video_url: v.string(),
         description: v.optional(v.string()),
         reviews: v.optional(v.array(v.id('review'))),
         genre: v.string(),
