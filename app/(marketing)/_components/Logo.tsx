@@ -7,10 +7,14 @@ const font = Poppins({
     subsets: ['latin']
 })
 
-const Logo = () => {
+interface LogoProps {
+    className?: string;
+}
+
+const Logo = ({ className }: LogoProps) => {
     return (
         <div className={`hidden md:flex items-center gap-2`}>
-            <p className={cn(`font-semibold`, font.className)}>WTFLIX</p>
+            <p className={cn(`font-semibold`, font.className, className)}>WTFLIX</p>
         </div>
     )
 }

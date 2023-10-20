@@ -21,11 +21,11 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     if (!isAuthenticated) return redirect('/')
 
     return (
-        <div className='h-full dark:bg-dark flex relative'>
+        <div className='h-full dark:bg-dark flex relative flex-1'>
             <div className='w-full absolute top-0 h-24 bg-white'>
                 <Navbar />
             </div>
-            <main className='h-full flex-1 overflow-hidden pt-24'>
+            <main className='h-full flex-1 pt-24 '>
                 {children}
             </main>
         </div>
