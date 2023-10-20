@@ -10,11 +10,7 @@ const MainNav = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => 
     const params = useParams()
 
     const routes = [
-        {
-            label: 'Home',
-            href: `/`,
-            active: pathname === `/`
-        },
+
         {
             label: 'Series',
             href: `/series`,
