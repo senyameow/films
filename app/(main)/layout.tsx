@@ -11,7 +11,6 @@ import Billboard from './(routes)/_components/Billboard'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
 
-    const film = useQuery(api.documents.getRandomFilm)
 
     const { isAuthenticated, isLoading } = useConvexAuth()
     const userId = useStoreUserEffect();
@@ -19,7 +18,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     if (!isAuthenticated) return redirect('/')
 
 
-    if (isLoading || film === undefined || userId === null) {
+    if (isLoading || userId === null) {
         return (
             <div className='flex h-full w-full items-center justify-center'>
                 <Loader2 className='w-12 h-12 animate-spin' />
@@ -34,9 +33,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 <Navbar userId={userId} />
             </div>
             <main className='h-full flex-1 pt-24 w-full overflow-x-hidden'>
-                <div className='absolute top-0 w-full h-full'>
-                    <Billboard film={film} />
-                </div>
+
                 {children}
             </main>
         </div>

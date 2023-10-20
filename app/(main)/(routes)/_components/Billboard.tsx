@@ -1,6 +1,7 @@
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Doc } from '@/convex/_generated/dataModel'
 import { Info, Video } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 interface BillboardProps {
@@ -8,6 +9,9 @@ interface BillboardProps {
 }
 
 const Billboard = ({ film }: BillboardProps) => {
+
+
+
     return (
         <div className='relative top-0 h-[50.25vw]'>
             <video className='w-full object-cover h-full relative' autoPlay muted loop poster={film.cover_url} src={film.video_url}></video>
@@ -20,10 +24,10 @@ const Billboard = ({ film }: BillboardProps) => {
                             Watch Now
                             <Video className='w-4 h-4 ml-2' />
                         </Button>
-                        <Button className=''>
+                        <Link href={`/films/${film._id}`} className={buttonVariants({ variant: 'default' })}>
                             More Info
                             <Info className='w-4 h-4 ml-2' />
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
