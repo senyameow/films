@@ -22,7 +22,7 @@ const Heading = () => {
                 while watching the best films in the world for free!
             </h3>
             <div className='w-full flex items-center justify-center'>
-                {isAuthenticated && !isLoading && <Link href={'/docs'}>
+                {isAuthenticated && !isLoading && <Link href={'/films'}>
                     <Button className='font-semibold gap-2'>
                         Get WTFlix Free
                         <ArrowRight className='text-white dark:text-black font-bold w-4 h-4' />
