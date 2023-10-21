@@ -13,7 +13,7 @@ const Heading = () => {
     const { isAuthenticated, isLoading } = useConvexAuth()
 
     return (
-        <div className='max-w-3xl space-y-4 text-center flex-1 pt-6 md:pt-4'>
+        <div className='max-w-3xl space-y-8 md:space-y-4 text-center flex-1 pt-6 md:pt-4 flex-col flex items-center justify-center md:block'>
             <h1 className='text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold'>
                 Films, Series, Mood, Smiles. Welcome to <span className='underline'>WTFlix</span>
             </h1>
