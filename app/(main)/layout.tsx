@@ -29,7 +29,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div className='h-full dark:bg-dark flex relative flex-1'>
-            <div className='w-full fixed top-0 h-24 z-50'>
+            <div className='w-full fixed top-0 h-24 z-50 hidden sm:block'>
                 <Navbar userId={userId} />
             </div>
             <main className='h-full flex-1 pt-24 w-full overflow-x-hidden'>

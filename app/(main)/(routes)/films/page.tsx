@@ -4,6 +4,7 @@ import Billboard from '../_components/Billboard'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { Loader2 } from 'lucide-react'
+import MovieList from './_components/MovieList'
 
 const Home = () => {
 
@@ -22,6 +23,7 @@ const Home = () => {
         <>
             <div className='absolute top-0 w-full h-full'>
                 <Billboard film={film} />
+                <MovieList />
             </div>
         </>
     )

@@ -25,7 +25,7 @@ const Navbar = ({ userId }: NavbarProps) => {
     const isScrolled = useScrollTop()
 
     return (
-        <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition`, isScrolled && 'opacity-10')}>
+        <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition duration-500`, isScrolled && 'bg-opacity-0')}>
             < div className='flex flex-row items-center gap-3' >
                 <Link href='/films'><Logo className='text-2xl mr-8' /></Link>
                 <MainNav />
