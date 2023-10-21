@@ -5,6 +5,7 @@ import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { Loader2 } from 'lucide-react'
 import MovieList from './_components/MovieList'
+import ModalProvider from '@/providers/ModalProvider'
 
 const Home = () => {
 
@@ -22,6 +23,7 @@ const Home = () => {
     return (
         <>
             <div className='absolute top-0 w-full h-full'>
+                <ModalProvider />
                 <Billboard film={film} />
                 <MovieList />
             </div>

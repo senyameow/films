@@ -31,3 +31,14 @@ export const movieList = query({
         return movies;
     },
 });
+
+export const movie = query({
+    args: {
+        id: v.optional(v.id('films'))
+    },
+    handler: async (ctx, args) => {
+
+        const movie = await ctx.db.get(args.id!)
+        return movie
+    }
+})

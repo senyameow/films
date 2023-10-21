@@ -17,17 +17,22 @@ import { api } from '@/convex/_generated/api'
 const MoreInfoModal = () => {
 
     const dispatch = useAppDispatch()
-    const { onClose, onOpen } = moreInfoSlice.actions
+    const { onClose } = moreInfoSlice.actions
     const { isOpen, filmId } = useAppSelector(state => state.more)
+
+    if (!filmId) return null
+
+    const movie = useQuery(api.documents.movie, { id: filmId! })
+
+    if (movie === null) return null
 
     return (
         <Dialog open={isOpen} onOpenChange={() => dispatch(onClose())}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle></DialogTitle>
+                    <DialogTitle>{movie?.title}</DialogTitle>
                     <DialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        {movie?.description}
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>

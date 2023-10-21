@@ -8,6 +8,7 @@ import Navbar from './(routes)/_components/Navbar'
 import useStoreUserEffect from '@/hooks/use-store-user'
 import { api } from '@/convex/_generated/api'
 import Billboard from './(routes)/_components/Billboard'
+import ModalProvider from '@/providers/ModalProvider'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
 

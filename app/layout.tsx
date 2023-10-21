@@ -3,8 +3,8 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { ConvexClientProvider } from '@/providers/ConvexClientProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { Provider } from 'react-redux'
 import StoreProvider from '@/providers/StoreProvider'
+import ModalProvider from '@/providers/ModalProvider'
 
 const inter = Poppins({ subsets: ['latin'], weight: ['400', '600', '500'] })
 
