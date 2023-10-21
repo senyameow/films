@@ -46,9 +46,38 @@ const MovieList = () => {
                         </div>
                     )
                 })}
-                {status === 'LoadingMore' && (
-                    <Skeleton className='w-[330px] h-[200px] text-gray-400' />
-                )}
+                <div className='block sm:hidden'>
+                    {status === 'LoadingMore' && (
+                        <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                    )}
+                </div>
+                <div className='block md:hidden'>
+                    {status === 'LoadingMore' && (
+                        <div className='grid grid-col-2'>
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                        </div>
+                    )}
+                </div>
+                <div className='block lg:hidden'>
+                    {status === 'LoadingMore' && (
+                        <div className='grid grid-col-3'>
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                        </div>
+                    )}
+                </div>
+                <div className='block xl:hidden'>
+                    {status === 'LoadingMore' && (
+                        <div className='grid grid-col-4'>
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )
