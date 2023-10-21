@@ -13,7 +13,7 @@ const Billboard = ({ film }: BillboardProps) => {
 
 
     return (
-        <div className='relative top-0 h-[50.25vw] mb-12 hidden sm:block'>
+        <div className='relative top-0 h-[50.25vw] hidden sm:block'>
             <video className='w-full object-cover h-full relative' autoPlay muted loop poster={film.cover_url} src={film.video_url}></video>
             <div className='absolute top-[30%] w-fit h-full left-16'>
                 <div className='flex items-start gap-6 flex-col'>
