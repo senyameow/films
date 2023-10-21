@@ -3,6 +3,8 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { ConvexClientProvider } from '@/providers/ConvexClientProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
+import { Provider } from 'react-redux'
+import StoreProvider from '@/providers/StoreProvider'
 
 const inter = Poppins({ subsets: ['latin'], weight: ['400', '600', '500'] })
 
@@ -20,9 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClientProvider>
-          <ThemeProvider defaultTheme='system' enableSystem disableTransitionOnChange storageKey='wtflix-theme' attribute='class'>
-            {children}
-          </ThemeProvider>
+          <StoreProvider>
+            <ThemeProvider defaultTheme='system' enableSystem disableTransitionOnChange storageKey='wtflix-theme' attribute='class'>
+              {children}
+            </ThemeProvider>
+          </StoreProvider>
         </ConvexClientProvider>
       </body>
     </html>
