@@ -40,9 +40,23 @@ const MoreInfoModal = () => {
                         </div>
                     </div>
                 </DialogHeader>
-                <ScrollArea className='w-full h-[200px] px-5 pt-2'>
-                    {film?.description}
-                </ScrollArea>
+                <div className='w-full h-[200px] px-8 py-4 '>
+                    <div className='flex items-start flex-col gap-10'>
+                        <div className='flex items-center gap-3 w-full justify-between'>
+                            <div className='flex items-center gap-3'>
+                                <span className='text-green-400 text-lg font-semibold'>New</span>
+                                <span>{film.genre}</span>
+                            </div>
+                            <div className=''>
+                                {film.duration}
+                            </div>
+                        </div>
+                        <ScrollArea className=''>
+                            {film?.description}
+                        </ScrollArea>
+                    </div>
+                </div>
+
             </DialogContent>
         </Dialog>
     )
