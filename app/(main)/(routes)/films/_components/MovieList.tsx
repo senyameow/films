@@ -52,7 +52,7 @@ const MovieList = ({ userId }: MovieListProps) => {
     }, [entry])
 
     return (
-        <div className='px-4 md:px-12 min-h-full pt-36 md:pt-0 bg-dark pb-24'>
+        <div className='px-4 md:px-12 min-h-full bg-dark pb-24'>
             <div className='flex items-center gap-6 justify-between'>
                 <h1 className='text-3xl font-semibold py-12 flex-1'>Best here for you <span className='text-4xl font-bold ml-2'>{user?.name}</span>:</h1>
                 <Input onChange={e => setValue(e.target.value)} value={value} className='flex-1 w-full ml-auto border-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 ring-offset-0' placeholder='search by title...' />
