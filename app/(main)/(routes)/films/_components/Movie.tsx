@@ -1,9 +1,8 @@
 import PlayButton from '@/components/PlayButton';
-import { Button, buttonVariants } from '@/components/ui/button';
 import { Doc } from '@/convex/_generated/dataModel'
 import { secondsToFilmDuration } from '@/lib/utils';
 import React, { useRef } from 'react'
-import { Info, MoreHorizontal } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { useAppDispatch } from '@/hooks/redux';
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice';
 import { IUser } from '@/models/IUser';
@@ -36,6 +35,11 @@ const Movie = ({ film, user }: MovieProps) => {
     const dispatch = useAppDispatch()
     const { onOpen } = moreInfoSlice.actions
 
+    const onInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
+        dispatch(onOpen({ film, user }))
+    }
+
     return (
         <div key={film._id} className='w-full h-full min-w-[300px] mx-auto relative group bg-zinc-900 col-span'>
             <img src={film.cover_url} alt="film" className='object-cover h-full w-full rounded cursor-pointer transition duration-300 shadow-xl group-hover:opacity-90 sm:group-hover:opacity-0 delay-300' />
@@ -49,7 +53,7 @@ const Movie = ({ film, user }: MovieProps) => {
                     className="cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full"
                 />
                 <div className='absolute bottom-2 right-2'>
-                    <Info role='button' onClick={() => dispatch(onOpen({ film, user }))} className='w-6 h-6' />
+                    <button onClick={onInfo}><Info role='button' className='w-6 h-6' /></button>
                 </div>
                 <div className='z-10 p-2 lg:p-4 absolute w-full bg-neutral-800 transition shadow-md rounded-b-md'>
                     <div className='flex flex-col gap-4 items-start'>

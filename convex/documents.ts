@@ -23,13 +23,24 @@ export const getRandomFilm = query({
 })
 
 export const movieList = query({
-    args: { paginationOpts: paginationOptsValidator },
+    args: { paginationOpts: paginationOptsValidator, title: v.optional(v.string()) },
     handler: async (ctx, args) => {
-        const movies = await ctx.db
-            .query('films')
-            .withIndex('by_rating')
-            .order('desc')
-            .paginate(args.paginationOpts)
+        let movies;
+        if (!args.title) {
+            movies = await ctx.db
+                .query('films')
+                .withIndex('by_rating')
+                .order('desc')
+                .paginate(args.paginationOpts)
+        } else {
+            movies = await ctx.db
+                .query('films')
+                .withSearchIndex('by_title_raiting', q =>
+                    q.search('title', args.title!)
+                )
+                .paginate(args.paginationOpts)
+        }
+
         return movies;
     },
 });
@@ -86,3 +97,13 @@ export const removeFilm = mutation({
         return favourites
     },
 })
+
+// export const searchByTitle = query({
+//     args: {
+//         title: v.optional(v.string())
+//     },
+//     handler: async (ctx, args) => {
+//         // some validation
+//         // const films =
+//     }
+// })

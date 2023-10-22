@@ -18,7 +18,11 @@ export default defineSchema({
         genre: v.string(),
         duration: v.number(),
         rating: v.optional(v.number())
-    }).index('by_genre', ['genre']).index('by_rating', ['rating']).index('by_duration', ['duration'])
+    }).index('by_genre', ['genre']).index('by_rating', ['rating']).index('by_duration', ['duration']).index('by_rating_title', ['rating', 'title'])
+        .searchIndex('by_title_raiting', {
+            searchField: 'title',
+            filterFields: ['rating']
+        })
     ,
     reviews: defineTable({
         userId: v.id('users'),
