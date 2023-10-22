@@ -1,6 +1,8 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { paginationOptsValidator } from "convex/server";
+import { Id } from "./_generated/dataModel";
+import { useUser } from '@clerk/clerk-react'
 
 
 export const getUser = query({
@@ -41,4 +43,29 @@ export const movie = query({
         const movie = ctx.db.get(args.id!)
         return movie
     }
+})
+
+export const addFilm = mutation({
+    args: {
+        id: v.id('films'),
+        userId: v.id('users')
+    },
+    handler: async (ctx, args) => {
+        if (!args.userId) throw new Error('Unauthorized')
+        // рандомный чувак не может просто доабвить у себе фильм
+        const user = await ctx.db.get(args.userId)
+        if (!user) throw new Error('User Not Found')
+        const favourites = user.favouriteIds
+        if (favourites?.includes(args.id)) return favourites
+        if (favourites === undefined) {
+            await ctx.db.patch(user?._id, {
+                favouriteIds: [args.id]
+            })
+        } else {
+            await ctx.db.patch(user?._id, {
+                favouriteIds: [...favourites!, args.id]
+            })
+        }
+        return favourites
+    },
 })

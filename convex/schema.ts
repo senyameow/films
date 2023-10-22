@@ -5,7 +5,7 @@ export default defineSchema({
     users: defineTable({
         name: v.string(),
         tokenIdentifier: v.string(),
-        favouriteIds: v.optional(v.id('films')),
+        favouriteIds: v.optional(v.array(v.id('films'))),
         reviews: v.optional(v.array(v.id('reviews')))
     }).index("by_token", ["tokenIdentifier"]),
 

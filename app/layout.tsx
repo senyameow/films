@@ -5,6 +5,7 @@ import { ConvexClientProvider } from '@/providers/ConvexClientProvider'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import StoreProvider from '@/providers/StoreProvider'
 
+import { Toaster } from 'sonner'
 const inter = Poppins({ subsets: ['latin'], weight: ['400', '600', '500'] })
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ConvexClientProvider>
           <StoreProvider>
+            <Toaster />
             <ThemeProvider defaultTheme='system' enableSystem disableTransitionOnChange storageKey='wtflix-theme' attribute='class'>
               {children}
             </ThemeProvider>
