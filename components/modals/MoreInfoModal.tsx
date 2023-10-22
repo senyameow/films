@@ -52,7 +52,7 @@ const MoreInfoModal = () => {
                                 {secondsToFilmDuration(film.duration)}
                             </div>
                         </div>
-                        <div className='h-full w-[700px] overflow-x-hidden rounded-md p-2 overflow-y-auto'>
+                        <div className='h-full w-[700px] overflow-x-hidden rounded-md p-2 overflow-y-auto scrollbar scrollbar-thumb-gray-400'>
                             {film?.description}
                         </div>
                     </div>
