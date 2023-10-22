@@ -1,21 +1,26 @@
 'use client'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { api } from '@/convex/_generated/api'
-import { Doc } from '@/convex/_generated/dataModel'
+import { Doc, Id } from '@/convex/_generated/dataModel'
 import { useAppDispatch } from '@/hooks/redux'
+import useStoreUserEffect from '@/hooks/use-store-user'
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
 import { useQuery } from 'convex/react'
-import { Info, Video } from 'lucide-react'
-import React from 'react'
+import { Info, Loader2, Video } from 'lucide-react'
+import React, { useState } from 'react'
 
 interface BillboardProps {
-    film: Doc<'films'>
+    film: Doc<'films'>;
+    userId: Id<'users'>
 }
 
-const Billboard = ({ film }: BillboardProps) => {
+const Billboard = ({ film, userId }: BillboardProps) => {
+
+    const user = useQuery(api.documents.getUser, { id: userId })
 
     const dispatch = useAppDispatch()
     const { onOpen } = moreInfoSlice.actions
+
 
     return (
         <div className='relative top-0 h-[50.25vw] hidden sm:block'>
@@ -29,7 +34,7 @@ const Billboard = ({ film }: BillboardProps) => {
                             Watch Now
                             <Video className='w-4 h-4 ml-2' />
                         </Button>
-                        <Button onClick={() => dispatch(onOpen(film))}>
+                        <Button onClick={() => dispatch(onOpen({ film, user }))}>
                             More Info
                             <Info className='w-4 h-4 ml-2' />
                         </Button>
@@ -39,5 +44,4 @@ const Billboard = ({ film }: BillboardProps) => {
         </div>
     )
 }
-
 export default Billboard

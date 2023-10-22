@@ -13,10 +13,11 @@ import { ScrollArea } from '../ui/scroll-area'
 import PlayButton from '../PlayButton'
 import FavoriteButton from '../FavoriteButton'
 import { secondsToFilmDuration } from '@/lib/utils'
+import { Loader2 } from 'lucide-react'
 
 const MoreInfoModal = () => {
 
-    const { isOpen, film } = useAppSelector(state => state.more)
+    const { isOpen, film, user } = useAppSelector(state => state.more)
     const dispatch = useAppDispatch()
     const { onClose } = moreInfoSlice.actions
 
@@ -36,7 +37,7 @@ const MoreInfoModal = () => {
                             </p>
                             <div className="flex flex-row gap-4 items-center">
                                 <PlayButton id={film._id} />
-                                <FavoriteButton id={film._id} />
+                                {user?._id === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <FavoriteButton id={film._id} userId={user?._id} />}
                             </div>
                         </div>
                     </div>

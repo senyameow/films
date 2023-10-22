@@ -69,3 +69,20 @@ export const addFilm = mutation({
         return favourites
     },
 })
+export const removeFilm = mutation({
+    args: {
+        id: v.id('films'),
+        userId: v.optional(v.id('users'))
+    },
+    handler: async (ctx, args) => {
+        if (!args.userId) throw new Error('Unauthorized')
+        // рандомный чувак не может просто доабвить у себе фильм
+        const user = await ctx.db.get(args.userId)
+        if (!user) throw new Error('User Not Found')
+        const favourites = user.favouriteIds
+        await ctx.db.patch(user._id, {
+            favouriteIds: favourites?.filter(id => id !== args.id)
+        })
+        return favourites
+    },
+})
