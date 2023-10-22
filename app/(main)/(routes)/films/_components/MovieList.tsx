@@ -6,6 +6,7 @@ import { useUser } from '@clerk/clerk-react';
 import { useIntersection } from '@mantine/hooks';
 import { usePaginatedQuery } from 'convex/react';
 import React, { useEffect, useRef } from 'react'
+import Movie from './Movie';
 
 const MovieList = () => {
 
@@ -41,8 +42,8 @@ const MovieList = () => {
                         )
                     }
                     return (
-                        <div ref={ref} key={film._id} className='w-full h-full min-w-[300px] mx-auto relative'>
-                            <img src={film.cover_url} alt="film" className='object-cover h-full w-full' />
+                        <div key={film._id} ref={ref}>
+                            <Movie film={film} />
                         </div>
                     )
                 })}

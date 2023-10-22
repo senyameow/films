@@ -1,7 +1,6 @@
-'use client'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
-import MoreInfoSlice, { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
-import React from 'react'
+import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
+import React, { useEffect } from 'react'
 
 import {
     Dialog,
@@ -9,32 +8,39 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
-import { useQuery } from 'convex/react'
-import { api } from '@/convex/_generated/api'
+import { ScrollArea } from '../ui/scroll-area'
 
 const MoreInfoModal = () => {
 
+    const { isOpen, film } = useAppSelector(state => state.more)
     const dispatch = useAppDispatch()
     const { onClose } = moreInfoSlice.actions
-    const { isOpen, filmId } = useAppSelector(state => state.more)
 
-    if (!filmId) return null
-
-    const movie = useQuery(api.documents.movie, { id: filmId! })
-
-    if (movie === null) return null
+    if (film === undefined) {
+        return null;
+    }
 
     return (
         <Dialog open={isOpen} onOpenChange={() => dispatch(onClose())}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>{movie?.title}</DialogTitle>
-                    <DialogDescription>
-                        {movie?.description}
-                    </DialogDescription>
+            <DialogContent className='rounded-t-xl'>
+                <DialogHeader className='w-full'>
+                    <div className="relative h-96 w-full">
+                        <video poster={film?.cover_url} autoPlay muted loop src={film?.video_url} className="w-full rounded-t-xl brightness-[60%] object-cover h-full" />
+                        <div className="absolute bottom-[10%] left-10">
+                            <p className="text-white text-3xl md:text-4xl h-full lg:text-5xl font-bold mb-8">
+                                {film?.title}
+                            </p>
+                            <div className="flex flex-row gap-4 items-center">
+                                {/* <PlayButton movieId={film?.id} /> */}
+                                {/* <FavoriteButton movieId={film?.id} /> */}
+                            </div>
+                        </div>
+                    </div>
                 </DialogHeader>
+                <ScrollArea className='w-full h-[200px] px-5 pt-2'>
+                    {film?.description}
+                </ScrollArea>
             </DialogContent>
         </Dialog>
     )

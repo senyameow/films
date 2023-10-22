@@ -1,7 +1,11 @@
+'use client'
 import { Button, buttonVariants } from '@/components/ui/button'
+import { api } from '@/convex/_generated/api'
 import { Doc } from '@/convex/_generated/dataModel'
+import { useAppDispatch } from '@/hooks/redux'
+import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
+import { useQuery } from 'convex/react'
 import { Info, Video } from 'lucide-react'
-import Link from 'next/link'
 import React from 'react'
 
 interface BillboardProps {
@@ -10,7 +14,8 @@ interface BillboardProps {
 
 const Billboard = ({ film }: BillboardProps) => {
 
-
+    const dispatch = useAppDispatch()
+    const { onOpen } = moreInfoSlice.actions
 
     return (
         <div className='relative top-0 h-[50.25vw] hidden sm:block'>
@@ -24,10 +29,10 @@ const Billboard = ({ film }: BillboardProps) => {
                             Watch Now
                             <Video className='w-4 h-4 ml-2' />
                         </Button>
-                        <Link href={`/films/${film._id}`} className={buttonVariants({ variant: 'default' })}>
+                        <Button onClick={() => dispatch(onOpen(film))}>
                             More Info
                             <Info className='w-4 h-4 ml-2' />
-                        </Link>
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -1,28 +1,28 @@
-import { Id } from "@/convex/_generated/dataModel";
+import { Doc, Id } from "@/convex/_generated/dataModel";
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from '@reduxjs/toolkit'
 
 interface moreInfoState {
     isOpen: boolean;
-    filmId: Id<'films'> | undefined
+    film: Doc<'films'> | undefined
 }
 
 const initialState: moreInfoState = {
     isOpen: false,
-    filmId: undefined
+    film: undefined
 }
 
 export const moreInfoSlice = createSlice({
-    name: 'moreInfo',
+    name: 'more',
     initialState,
     reducers: {
-        onOpen(state, action: PayloadAction<Id<'films'>>) {
+        onOpen(state, action: PayloadAction<Doc<'films'>>) {
             state.isOpen = true
-            state.filmId = action.payload
+            state.film = action.payload
         },
         onClose(state) {
             state.isOpen = false
-            state.filmId = undefined
+            state.film = undefined
         },
     }
 })

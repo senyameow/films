@@ -36,9 +36,9 @@ export const movie = query({
     args: {
         id: v.optional(v.id('films'))
     },
-    handler: async (ctx, args) => {
+    handler: (ctx, args) => {
 
-        const movie = await ctx.db.get(args.id!)
+        const movie = ctx.db.get(args.id!)
         return movie
     }
 })

@@ -4,11 +4,8 @@ import React from 'react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { Loader2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
-import Navbar from './(routes)/_components/Navbar'
+import Navbar from './_components/Navbar'
 import useStoreUserEffect from '@/hooks/use-store-user'
-import { api } from '@/convex/_generated/api'
-import Billboard from './(routes)/_components/Billboard'
-import ModalProvider from '@/providers/ModalProvider'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
 
@@ -16,10 +13,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     const { isAuthenticated, isLoading } = useConvexAuth()
     const userId = useStoreUserEffect();
 
-    if (!isAuthenticated) return redirect('/')
-
-
-    if (isLoading || userId === null) {
+    if (isLoading || userId === null || userId === undefined) {
         return (
             <div className='flex h-full w-full items-center justify-center'>
                 <Loader2 className='w-12 h-12 animate-spin' />
@@ -27,6 +21,10 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         )
     }
 
+    if (!isAuthenticated) {
+        console.error('Unauthenticated')
+        return redirect('/')
+    }
 
     return (
         <div className='h-full dark:bg-dark flex relative flex-1'>
