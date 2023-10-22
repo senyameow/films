@@ -25,13 +25,15 @@ const MovieList = ({ userId }: MovieListProps) => {
 
     const [films, setFilms] = useState<Doc<'films'>[]>()
 
-    let { results, status, loadMore } = usePaginatedQuery(
+    const { results, status, loadMore } = usePaginatedQuery(
         api.documents.movieList,
         {},
         { initialNumItems: 8 }
     );
 
-    console.log(films)
+    const qwe = useQuery(api.documents.searchByTitle, { title: value })
+
+    console.log(qwe)
 
     useEffect(() => {
         setFilms(results)
@@ -44,6 +46,7 @@ const MovieList = ({ userId }: MovieListProps) => {
         threshold: 1
     })
 
+
     useEffect(() => {
         if (entry?.isIntersecting) loadMore(4)
     }, [entry])
@@ -55,7 +58,21 @@ const MovieList = ({ userId }: MovieListProps) => {
                 <Input onChange={e => setValue(e.target.value)} value={value} className='flex-1 w-full ml-auto border-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 ring-offset-0' placeholder='search by title...' />
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-                {films?.map((film, ind) => {
+                {qwe?.length! > 0 && qwe?.map((film, ind) => {
+                    if (qwe === undefined) {
+                        return (
+                            <div>
+                                Loading
+                            </div>
+                        )
+                    }
+                    return (
+                        <div key={film._id} ref={ref}>
+                            <Movie user={user} film={film} />
+                        </div>
+                    )
+                })}
+                {(!qwe?.length && qwe !== undefined) && results?.map((film, ind) => {
                     if (ind === results.length) {
                         return (
                             <div key={film._id} ref={ref} className='text-7xl'>
@@ -94,9 +111,6 @@ const MovieList = ({ userId }: MovieListProps) => {
                 <div className='block xl:hidden'>
                     {status === 'LoadingMore' && (
                         <div className='grid grid-col-4'>
-                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
-                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
-                            <Skeleton className='w-[330px] h-[200px] text-gray-400' />
                             <Skeleton className='w-[330px] h-[200px] text-gray-400' />
                         </div>
                     )}

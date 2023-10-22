@@ -98,12 +98,17 @@ export const removeFilm = mutation({
     },
 })
 
-// export const searchByTitle = query({
-//     args: {
-//         title: v.optional(v.string())
-//     },
-//     handler: async (ctx, args) => {
-//         // some validation
-//         // const films =
-//     }
-// })
+export const searchByTitle = query({
+    args: {
+        title: v.optional(v.string())
+    },
+    handler: async (ctx, args) => {
+        // some validation
+        const films = await ctx.db.query('films')
+            .withSearchIndex('by_title_raiting', q =>
+                q.search('title', args.title!)
+            ).collect()
+
+        return films
+    }
+})
