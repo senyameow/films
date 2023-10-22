@@ -28,7 +28,7 @@ const Home = () => {
             <div className='absolute top-0 w-full h-full'>
                 <ModalProvider />
                 <Billboard film={film} userId={userId} />
-                <MovieList />
+                <MovieList userId={userId} />
             </div>
         </>
     )

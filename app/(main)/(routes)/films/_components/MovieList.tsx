@@ -4,13 +4,20 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/clerk-react';
 import { useIntersection } from '@mantine/hooks';
-import { usePaginatedQuery } from 'convex/react';
+import { usePaginatedQuery, useQuery } from 'convex/react';
 import React, { useEffect, useRef } from 'react'
 import Movie from './Movie';
+import { Id } from '@/convex/_generated/dataModel';
 
-const MovieList = () => {
+interface MovieListProps {
+    userId: Id<'users'>
+}
 
-    const { user } = useUser()
+const MovieList = ({ userId }: MovieListProps) => {
+
+    const user = useQuery(api.documents.getUser, { id: userId })
+
+    console.log(user?.name)
 
     const { results, status, loadMore } = usePaginatedQuery(
         api.documents.movieList,
@@ -31,7 +38,7 @@ const MovieList = () => {
 
     return (
         <div className='px-4 md:px-12 min-h-full pt-36 md:pt-0 bg-dark pb-24'>
-            <h1 className='text-3xl font-semibold py-12'>Best here for you <span className='text-4xl font-bold ml-2'>{user?.firstName}</span>:</h1>
+            <h1 className='text-3xl font-semibold py-12'>Best here for you <span className='text-4xl font-bold ml-2'>{user?.name}</span>:</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
                 {results?.map((film, ind) => {
                     if (ind === results.length) {
@@ -43,7 +50,7 @@ const MovieList = () => {
                     }
                     return (
                         <div key={film._id} ref={ref}>
-                            <Movie film={film} />
+                            <Movie user={user} film={film} />
                         </div>
                     )
                 })}
