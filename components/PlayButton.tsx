@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Button } from './ui/button'
-import { PlayCircle } from 'lucide-react'
+import { Play, PlayCircle } from 'lucide-react'
 import { useAppDispatch } from '@/hooks/redux'
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
 import { Id } from '@/convex/_generated/dataModel'
@@ -19,9 +19,10 @@ const PlayButton = ({ id }: PlayButtonProps) => {
     }
 
     return (
-        <button className='hover:opacity-90 transition p-2' onClick={onPlay}>
-            <PlayCircle className='w-12 h-12 ' />
-        </button>
+        <Button className='hover:opacity-90 transition p-2' onClick={onPlay}>
+            <Play className='w-6 h-6 ' />
+            <span className='font-extrabold text-lg'>Play</span>
+        </Button>
     )
 }
 

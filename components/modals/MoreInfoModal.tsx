@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from '../ui/scroll-area'
 import PlayButton from '../PlayButton'
+import FavoriteButton from '../FavoriteButton'
 
 const MoreInfoModal = () => {
 
@@ -34,7 +35,7 @@ const MoreInfoModal = () => {
                             </p>
                             <div className="flex flex-row gap-4 items-center">
                                 <PlayButton id={film._id} />
-                                {/* <FavoriteButton movieId={film?.id} /> */}
+                                <FavoriteButton id={film._id} />
                             </div>
                         </div>
                     </div>
