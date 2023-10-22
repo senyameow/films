@@ -34,7 +34,6 @@ const VideoPreview = ({ film }: VideoPreviewProps) => {
             <video
                 ref={videoRef}
                 src={film.video_url}
-                autoPlay
                 muted
                 poster={film.cover_url}
                 className="cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full"
