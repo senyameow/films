@@ -2,7 +2,7 @@ import React from 'react'
 
 const MovieInfo = () => {
     return (
-        <div>MovieInfo</div>
+        <div className='col-span-7'>MovieInfo</div>
     )
 }
 
