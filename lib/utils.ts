@@ -15,3 +15,8 @@ export function secondsToFilmDuration(seconds: number) {
   const parts = [formattedHours, formattedMinutes].filter(Boolean);
   return parts.join(' ');
 }
+
+export const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+}) 
