@@ -8,12 +8,19 @@ import { Film, Play, Watch } from 'lucide-react'
 import React from 'react'
 import Rating from './Rating'
 import RandomReview from './RandomReview'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
 
 interface MovieInfoProps {
     film: Doc<'films'>
 }
 
 const MovieInfo = ({ film }: MovieInfoProps) => {
+
+    const reviews = useQuery(api.documents.getReviews, { filmId: film._id })
+
+    console.log(reviews)
+
     return (
         <div className='col-span-7 flex flex-col items-start space-y-6 ml-8 pt-12 lg:pt-0'>
             <div className='flex items-center w-full justify-between pr-12'>
@@ -31,7 +38,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
                 </div>
                 <div className='flex flex-col space-y-8 items-start w-full flex-[1.5]'>
                     <Rating rating={film.rating!} />
-                    <RandomReview />
+                    {film.reviews?.length! > 0 && <RandomReview review={reviews?.[0]!} />}
                 </div>
             </div>
         </div>

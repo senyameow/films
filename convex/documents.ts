@@ -112,3 +112,13 @@ export const searchByTitle = query({
         return films
     }
 })
+
+export const getReviews = query({
+    args: {
+        filmId: v.id('films')
+    },
+    handler: async (ctx, args) => {
+        const reviews = await ctx.db.query('reviews').withIndex('by_film_stars').filter(q => q.eq(q.field('filmId'), args.filmId)).order('desc').collect()
+        return reviews
+    }
+})

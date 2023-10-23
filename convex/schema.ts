@@ -46,5 +46,6 @@ export default defineSchema({
             v.literal(5)
         ),
         content: v.optional(v.string()),
-    }).index('by_stars', ['stars'])
+        filmId: v.id('films')
+    }).index('by_film_stars', ['filmId', 'stars'])
 });
