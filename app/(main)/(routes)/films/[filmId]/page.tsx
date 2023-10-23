@@ -1,13 +1,13 @@
 'use client'
 import { Separator } from '@/components/ui/separator'
-import { useParams } from 'next/navigation'
+import { redirect, useParams } from 'next/navigation'
 import React from 'react'
 import Gallery from './_components/Gallery'
 import MovieInfo from './_components/MovieInfo'
 import RelatedMovies from '../_components/RelatedMovies'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
-import { Doc, Id } from '@/convex/_generated/dataModel'
+import { Id } from '@/convex/_generated/dataModel'
 import { Loader2 } from 'lucide-react'
 
 
@@ -16,6 +16,8 @@ const FilmPage = () => {
     const params = useParams()
 
     const film = useQuery(api.documents.movie, { id: params?.filmId as Id<'films'> })
+
+    if (film === null) return redirect('/films')
 
     if (film === undefined) {
         return (

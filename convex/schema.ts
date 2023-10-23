@@ -18,7 +18,19 @@ export default defineSchema({
         reviews: v.optional(v.array(v.id('review'))),
         genre: v.string(),
         duration: v.number(),
-        rating: v.optional(v.number())
+        rating: v.optional(v.number()),
+
+        country: v.string(),
+        year: v.string(),
+        director: v.string(),
+        revenue: v.number(),
+        constraints: v.union(
+            v.literal(0),
+            v.literal(12),
+            v.literal(16),
+            v.literal(18),
+            v.literal(66),
+        ),
     }).index('by_genre', ['genre']).index('by_rating', ['rating']).index('by_duration', ['duration']).index('by_rating_title', ['rating', 'title'])
         .searchIndex('by_title_raiting', {
             searchField: 'title'
