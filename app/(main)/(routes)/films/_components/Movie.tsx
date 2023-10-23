@@ -6,6 +6,7 @@ import { Info } from 'lucide-react';
 import { useAppDispatch } from '@/hooks/redux';
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice';
 import { IUser } from '@/models/IUser';
+import { useRouter } from 'next/navigation';
 
 interface MovieProps {
     film: Doc<'films'>;
@@ -14,7 +15,10 @@ interface MovieProps {
 
 const Movie = ({ film, user }: MovieProps) => {
 
+    const router = useRouter()
+
     const videoRef = useRef<HTMLVideoElement>(null);
+
 
 
     const handleMouseEnter = () => {
@@ -46,6 +50,8 @@ const Movie = ({ film, user }: MovieProps) => {
             <div onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave} className=' opacity-0 group-hover:opacity-100 invisible sm:visible z-10 duration-200 absolute transition top-0 delay-300 group-hover:scale-110 group-hover:-translate-y-[75px] group-hover:translate-x-[20px]'>
                 <video
+                    role='button'
+                    onClick={() => router.push(`/films/${film._id}`)}
                     ref={videoRef}
                     src={film.video_url}
                     muted
