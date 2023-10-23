@@ -8,6 +8,7 @@ import RelatedMovies from '../_components/RelatedMovies'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { Doc, Id } from '@/convex/_generated/dataModel'
+import { Loader2 } from 'lucide-react'
 
 
 const FilmPage = () => {
@@ -16,12 +17,20 @@ const FilmPage = () => {
 
     const film = useQuery(api.documents.movie, { id: params?.filmId as Id<'films'> })
 
+    if (film === undefined) {
+        return (
+            <div className='flex h-full w-full items-center justify-center'>
+                <Loader2 className='w-12 h-12 animate-spin' />
+            </div>
+        )
+    }
+
     return (
         <div className='max-w-7xl mx-auto'>
             <div className='px-2 py-10 sm:px-2 lg:px-4'>
                 <div className='lg:grid lg:grid-cols-12 lg:items-start gap-6 justify-between'>
                     <Gallery images={film?.screens!} />
-                    <MovieInfo />
+                    <MovieInfo film={film!} />
                 </div>
                 <Separator className='my-10' />
                 <RelatedMovies />
