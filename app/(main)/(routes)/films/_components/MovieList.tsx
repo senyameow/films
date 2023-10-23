@@ -21,7 +21,7 @@ const MovieList = ({ userId }: MovieListProps) => {
 
     const [value, setValue] = useState('')
 
-    const debouncedValue = useDebounce(value, 300)
+    const debouncedValue = useDebounce(value, 700)
 
     const [films, setFilms] = useState<Doc<'films'>[]>()
 
@@ -31,9 +31,7 @@ const MovieList = ({ userId }: MovieListProps) => {
         { initialNumItems: 8 }
     );
 
-    const qwe = useQuery(api.documents.searchByTitle, { title: value })
-
-    console.log(qwe)
+    const searchedFilms = useQuery(api.documents.searchByTitle, { title: debouncedValue })
 
     useEffect(() => {
         setFilms(results)
@@ -58,8 +56,8 @@ const MovieList = ({ userId }: MovieListProps) => {
                 <Input onChange={e => setValue(e.target.value)} value={value} className='flex-1 w-full ml-auto border-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 ring-offset-0' placeholder='search by title...' />
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-                {qwe?.length! > 0 && qwe?.map((film, ind) => {
-                    if (qwe === undefined) {
+                {searchedFilms?.length! > 0 && searchedFilms?.map((film, ind) => {
+                    if (searchedFilms === undefined) {
                         return (
                             <div>
                                 Loading
@@ -72,7 +70,7 @@ const MovieList = ({ userId }: MovieListProps) => {
                         </div>
                     )
                 })}
-                {(!qwe?.length && qwe !== undefined) && results?.map((film, ind) => {
+                {(!searchedFilms?.length && searchedFilms !== undefined) && results?.map((film, ind) => {
                     if (ind === results.length) {
                         return (
                             <div key={film._id} ref={ref} className='text-7xl'>
