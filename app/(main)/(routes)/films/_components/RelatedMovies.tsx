@@ -1,8 +1,20 @@
+'use client'
+import { api } from '@/convex/_generated/api';
+import { useQuery } from 'convex/react';
 import React from 'react'
 
-const RelatedMovies = () => {
+interface RelatedMoviesProps {
+    filmGenre: string;
+}
+
+const RelatedMovies = ({ filmGenre }: RelatedMoviesProps) => {
+
+    const relatedFilms = useQuery(api.documents.relatedMovies, { genre: filmGenre })
+
     return (
-        <div>RelatedMovies</div>
+        <div>
+            {filmGenre}
+        </div>
     )
 }
 

@@ -122,3 +122,12 @@ export const getReviews = query({
         return reviews
     }
 })
+
+export const relatedMovies = query({
+    args: {
+        genre: v.string()
+    },
+    handler: async (ctx, args) => {
+        return await ctx.db.query('films').withIndex('by_genre').take(4)
+    }
+})

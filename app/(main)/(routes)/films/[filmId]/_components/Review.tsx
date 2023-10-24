@@ -31,11 +31,11 @@ const Review = ({ review }: ReviewProps) => {
 
     const { id } = useAppSelector(state => state.user)
 
-    console.log(id)
+    const isOwn = id === review.userId
 
     return (
         <Card className='bg-transparent p-0 w-full group relative'>
-            {true && (
+            {isOwn && (
                 <Button variant={'ghost'} className='absolute -top-3 opacity-0 group-hover:opacity-100 transition right-2'>
                     <Edit className='w-4 h-4' />
                 </Button>
