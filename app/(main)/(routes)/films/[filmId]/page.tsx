@@ -36,6 +36,8 @@ const FilmPage = () => {
                 </div>
                 <Separator className='my-10' />
                 <RelatedMovies filmGenre={film.genre} />
+                <Separator className='my-10' />
+
             </div>
         </div>
     )
