@@ -1,24 +1,24 @@
-// import { Id } from "@/convex/_generated/dataModel";
-// import { createSlice } from "@reduxjs/toolkit";
-// import { PayloadAction } from '@reduxjs/toolkit'
+import { Id } from "@/convex/_generated/dataModel";
+import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction } from '@reduxjs/toolkit'
 
-// interface usersState {
-//     id: Id<'users'>[];
+interface userState {
+    id: Id<'users'> | undefined;
 
-// }
+}
 
-// const initialState: usersState = {
-//     filmIds: []
-// }
+const initialState: userState = {
+    id: undefined
+}
 
-// export const usersSlice = createSlice({
-//     name: 'users',
-//     initialState,
-//     reducers: {
-//         onStore(state, action: PayloadAction<Id<'films'>[]>) {
-//             state.filmIds = action.payload
-//         },
-//     }
-// })
+export const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers: {
+        onStore(state, action: PayloadAction<Id<'users'>>) {
+            state.id = action.payload
+        },
+    }
+})
 
-// export default usersSlice.reducer
+export default userSlice.reducer

@@ -6,12 +6,17 @@ import { Loader2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import Navbar from './_components/Navbar'
 import useStoreUserEffect from '@/hooks/use-store-user'
+import { useAppDispatch } from '@/hooks/redux'
+import { userSlice } from '@/store/reducers/UsersSlice'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
 
 
     const { isAuthenticated, isLoading } = useConvexAuth()
     const userId = useStoreUserEffect();
+    const dispatch = useAppDispatch()
+    const { onStore } = userSlice.actions
+
 
     if (isLoading || userId === null || userId === undefined) {
         return (

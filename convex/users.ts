@@ -15,7 +15,8 @@ import { mutation } from "./_generated/server";
  */
 export const store = mutation({
     args: {
-        image_url: v.string()
+        image_url: v.string(),
+        email: v.string()
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -34,7 +35,8 @@ export const store = mutation({
             // If we've seen this identity before but the name has changed, patch the value.
             if (user.name !== identity.name) {
                 await ctx.db.patch(user._id, { name: identity.name });
-                await ctx.db.patch(user._id, { image_url: args.image_url })
+                await ctx.db.patch(user._id, { image_url: args.image_url });
+                await ctx.db.patch(user._id, { email: args.email });
             }
             return user._id;
         }
@@ -42,7 +44,8 @@ export const store = mutation({
         return await ctx.db.insert("users", {
             name: identity.name!,
             tokenIdentifier: identity.tokenIdentifier,
-            image_url: args.image_url
+            image_url: args.image_url,
+            email: args.email
         });
     },
 });

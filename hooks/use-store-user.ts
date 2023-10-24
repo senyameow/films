@@ -1,13 +1,17 @@
 import { useUser } from "@clerk/clerk-react";
 import { useConvexAuth } from "convex/react";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
+import { useAppDispatch } from "./redux";
+import { userSlice } from "@/store/reducers/UsersSlice";
 
 export default function useStoreUserEffect() {
     const { isAuthenticated } = useConvexAuth();
     const { user } = useUser();
+    const dispatch = useAppDispatch()
+    const { onStore } = userSlice.actions
     // When this state is set we know the server
     // has stored the user.
     const [userId, setUserId] = useState<Id<"users"> | null>(null);
@@ -23,8 +27,9 @@ export default function useStoreUserEffect() {
         // Recall that `storeUser` gets the user information via the `auth`
         // object on the server. You don't need to pass anything manually here.
         async function createUser() {
-            const id = await storeUser({ image_url: user?.imageUrl! });
+            const id = await storeUser({ image_url: user?.imageUrl!, email: user?.emailAddresses[0].emailAddress! });
             setUserId(id);
+            dispatch(onStore(id))
         }
         createUser();
         return () => setUserId(null);
