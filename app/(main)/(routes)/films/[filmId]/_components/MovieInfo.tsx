@@ -7,9 +7,10 @@ import { formatter, secondsToFilmDuration } from '@/lib/utils'
 import { Film, Loader2, Play, Watch } from 'lucide-react'
 import React from 'react'
 import Rating from './Rating'
-import RandomReview from './RandomReview'
+import RandomReview from './Review'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
+import Review from './Review'
 
 interface MovieInfoProps {
     film: Doc<'films'>
@@ -46,7 +47,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
                 </div>
                 <div className='flex flex-col space-y-8 items-start w-full flex-[1.5]'>
                     <Rating rating={film.rating!} />
-                    {reviews.length > 0 && <RandomReview review={reviews?.[0]!} />}
+                    {reviews.length > 0 && <Review review={reviews?.[0]!} />}
                 </div>
             </div>
         </div>
