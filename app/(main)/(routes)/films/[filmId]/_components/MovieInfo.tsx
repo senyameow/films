@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Doc } from '@/convex/_generated/dataModel'
 import { formatter, secondsToFilmDuration } from '@/lib/utils'
-import { Film, Play, Watch } from 'lucide-react'
+import { Film, Loader2, Play, Watch } from 'lucide-react'
 import React from 'react'
 import Rating from './Rating'
 import RandomReview from './RandomReview'
@@ -20,6 +20,14 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
     const reviews = useQuery(api.documents.getReviews, { filmId: film._id })
 
     console.log(reviews)
+
+    if (reviews === undefined) {
+        return (
+            <div className='flex h-full w-full items-center justify-center'>
+                <Loader2 className='w-12 h-12 animate-spin' />
+            </div>
+        )
+    }
 
     return (
         <div className='col-span-7 flex flex-col items-start space-y-6 ml-8 pt-12 lg:pt-0'>
@@ -38,7 +46,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
                 </div>
                 <div className='flex flex-col space-y-8 items-start w-full flex-[1.5]'>
                     <Rating rating={film.rating!} />
-                    {film.reviews?.length! > 0 && <RandomReview review={reviews?.[0]!} />}
+                    {reviews.length > 0 && <RandomReview review={reviews?.[0]!} />}
                 </div>
             </div>
         </div>

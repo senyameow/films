@@ -1,3 +1,4 @@
+import { v } from "convex/values";
 import { mutation } from "./_generated/server";
 
 /**
@@ -13,8 +14,10 @@ import { mutation } from "./_generated/server";
  * by the JWT token's Claims config.
  */
 export const store = mutation({
-    args: {},
-    handler: async (ctx) => {
+    args: {
+        image_url: v.string()
+    },
+    handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
         if (!identity) {
             throw new Error("Called storeUser without authentication present");
@@ -38,6 +41,7 @@ export const store = mutation({
         return await ctx.db.insert("users", {
             name: identity.name!,
             tokenIdentifier: identity.tokenIdentifier,
+            image_url: args.image_url
         });
     },
 });

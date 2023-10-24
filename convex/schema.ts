@@ -6,7 +6,8 @@ export default defineSchema({
         name: v.string(),
         tokenIdentifier: v.string(),
         favouriteIds: v.optional(v.array(v.id('films'))),
-        reviews: v.optional(v.array(v.id('reviews')))
+        reviews: v.optional(v.array(v.id('reviews'))),
+        image_url: v.string()
     }).index("by_token", ["tokenIdentifier"]),
 
     films: defineTable({
