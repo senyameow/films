@@ -34,7 +34,7 @@ const Review = ({ review }: ReviewProps) => {
     const isOwn = id === review.userId
 
     return (
-        <Card className='bg-transparent p-0 w-full group relative'>
+        <Card className='bg-transparent p-0 w-full group relative min-w-fit'>
             {isOwn && (
                 <Button variant={'ghost'} className='absolute -top-3 opacity-0 group-hover:opacity-100 transition right-2'>
                     <Edit className='w-4 h-4' />
@@ -42,9 +42,9 @@ const Review = ({ review }: ReviewProps) => {
             )}
             <CardHeader>
                 <CardTitle className='flex items-center gap-3 justify-between w-full'>
-                    <div className='flex items-center gap-3'>
-                        <Image className='rounded-full' width={30} height={30} alt='user avatar' src={user?.image_url!} />
-                        <div>{user?.name}</div>
+                    <div className='flex items-center gap-3 shrink-0'>
+                        <Image className='rounded-full shrink-0' width={30} height={30} alt='user avatar' src={user?.image_url!} />
+                        <div className='whitespace-nowrap shrink-0 flex-1 min-w-fit'>{user?.name}</div>
                     </div>
                     <Stars stars={review.stars} />
                 </CardTitle>
