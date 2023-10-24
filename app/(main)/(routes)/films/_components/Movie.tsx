@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/hooks/redux';
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice';
 import { IUser } from '@/models/IUser';
 import { useRouter } from 'next/navigation';
+import Rating from '../[filmId]/_components/Rating';
 
 interface MovieProps {
     film: Doc<'films'>;
@@ -68,8 +69,9 @@ const Movie = ({ film }: MovieProps) => {
                             <PlayButton id={film._id} className='text-sm' />
                             <span className='font-semibold'>{secondsToFilmDuration(film.duration)}</span>
                         </div>
-                        <div className='text-sm font-semibold'>
-                            {film.genre}
+                        <div className=' flex items-center w-full justify-between'>
+                            <span className='text-sm font-semibold'>{film.genre}</span>
+                            <span className='text-sm font-semibold'><Rating className='text-xl sm:text-xl lg:text-xl xl:text-xl' iconClassName='w-5 h-5' rating={film.rating!} /> </span>
                         </div>
                     </div>
                 </div>
