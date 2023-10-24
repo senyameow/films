@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/hooks/redux'
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
 import { Id } from '@/convex/_generated/dataModel'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 interface PlayButtonProps {
     id: Id<'films'>;
@@ -14,10 +15,11 @@ interface PlayButtonProps {
 
 const PlayButton = ({ id, className }: PlayButtonProps) => {
 
-    const dispatch = useAppDispatch()
+    const router = useRouter()
 
-    const onPlay = () => {
-        console.log(id)
+    const onPlay = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
+        router.push(`/films/watch/${id}`)
     }
 
     return (

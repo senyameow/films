@@ -12,6 +12,7 @@ import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import Review from './Review'
 import { useMediaQuery } from '@mantine/hooks'
+import { useRouter } from 'next/navigation'
 
 interface MovieInfoProps {
     film: Doc<'films'>
@@ -20,6 +21,8 @@ interface MovieInfoProps {
 const MovieInfo = ({ film }: MovieInfoProps) => {
 
     const reviews = useQuery(api.documents.getReviews, { filmId: film._id })
+
+    const router = useRouter()
 
     const isSmall = useMediaQuery('(max-width: 648px)')
     const isExtraSmall = useMediaQuery('(max-width: 468px)')
@@ -36,7 +39,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
         <div className='col-span-7 flex flex-col items-start space-y-6 ml-8 pt-12 lg:pt-0'>
             <div className={cn(`flex items-center w-full justify-between pr-12`, isSmall && 'pr-0')}>
                 <h2 className='text-3xl sm:text-4xl font-extrabold'>{film?.title}</h2>
-                <Button className={cn(`text-lg whitespace-nowrap `, isExtraSmall && 'rounded-full w-12 h-12 items-center justify-center p-0')}> <span className={cn(``, isExtraSmall && 'hidden')}>Whatch Now</span> <Play className={cn(`w-4 h-4 ml-2`, isExtraSmall && 'w-8 h-8 ml-1')} /></Button>
+                <Button onClick={() => { router.push(`/films/watch/${film._id}`) }} className={cn(`text-lg whitespace-nowrap `, isExtraSmall && 'rounded-full w-12 h-12 items-center justify-center p-0')}> <span className={cn(``, isExtraSmall && 'hidden')}>Watch Now</span> <Play className={cn(`w-4 h-4 ml-2`, isExtraSmall && 'w-8 h-8 ml-1')} /></Button>
             </div>
             <Separator className='dark:bg-white' />
             <div className='flex flex-row justify-between gap-6 w-full items-start'>

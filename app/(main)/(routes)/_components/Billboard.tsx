@@ -5,8 +5,10 @@ import { Doc, Id } from '@/convex/_generated/dataModel'
 import { useAppDispatch } from '@/hooks/redux'
 import useStoreUserEffect from '@/hooks/use-store-user'
 import { moreInfoSlice } from '@/store/reducers/MoreInfoSlice'
+import { filmSlice } from '@/store/reducers/MovieSlice'
 import { useQuery } from 'convex/react'
 import { Info, Loader2, Video } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 interface BillboardProps {
@@ -14,12 +16,15 @@ interface BillboardProps {
     userId: Id<'users'>
 }
 
-const Billboard = ({ film, userId }: BillboardProps) => {
-
-    const user = useQuery(api.documents.getUser, { id: userId })
+const Billboard = ({ film }: BillboardProps) => {
 
     const dispatch = useAppDispatch()
     const { onOpen } = moreInfoSlice.actions
+    const router = useRouter()
+
+    const onWatch = () => {
+        router.push(`/films/watch/${film._id}`)
+    }
 
 
     return (
@@ -30,11 +35,11 @@ const Billboard = ({ film, userId }: BillboardProps) => {
                     <h2 className='text-2xl md:text-3xl xl:text-7xl font-bold whitespace-nowrap'>{film.title}</h2>
                     <div className='drop-shadow-xl shadow-black text-xl md:text-2xl xl:text-2xl max-w-[600px] font-semibold break-words overflow-hidden text-ellipsis h-[190px]'>{film.description}</div>
                     <div className='flex items-center gap-2'>
-                        <Button className=''>
+                        <Button onClick={onWatch} className=''>
                             Watch Now
                             <Video className='w-4 h-4 ml-2' />
                         </Button>
-                        <Button onClick={() => dispatch(onOpen({ film, user }))}>
+                        <Button onClick={() => dispatch(onOpen({ film }))}>
                             More Info
                             <Info className='w-4 h-4 ml-2' />
                         </Button>
