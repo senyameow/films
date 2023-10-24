@@ -10,10 +10,9 @@ import { useRouter } from 'next/navigation';
 
 interface MovieProps {
     film: Doc<'films'>;
-    user: IUser;
 }
 
-const Movie = ({ film, user }: MovieProps) => {
+const Movie = ({ film }: MovieProps) => {
 
     const router = useRouter()
 
@@ -41,7 +40,7 @@ const Movie = ({ film, user }: MovieProps) => {
 
     const onInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation()
-        dispatch(onOpen({ film, user }))
+        dispatch(onOpen({ film }))
     }
 
     return (

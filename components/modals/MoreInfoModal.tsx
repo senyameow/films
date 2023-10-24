@@ -17,13 +17,16 @@ import { Loader2 } from 'lucide-react'
 
 const MoreInfoModal = () => {
 
-    const { isOpen, film, user } = useAppSelector(state => state.more)
+    const { isOpen, film } = useAppSelector(state => state.more)
+    const { id } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const { onClose } = moreInfoSlice.actions
 
-    if (film === undefined) {
+    if (film === undefined || id === undefined) {
         return null;
     }
+
+    console.log(id)
 
     return (
         <Dialog open={isOpen} onOpenChange={() => dispatch(onClose())}>
@@ -37,7 +40,7 @@ const MoreInfoModal = () => {
                             </p>
                             <div className="flex flex-row gap-4 items-center">
                                 <PlayButton id={film._id} />
-                                {user?._id === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <FavoriteButton id={film._id} userId={user?._id} />}
+                                {id === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <FavoriteButton id={film._id} userId={id} />}
                             </div>
                         </div>
                     </div>
