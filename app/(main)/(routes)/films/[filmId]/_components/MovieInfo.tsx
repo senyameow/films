@@ -3,7 +3,7 @@ import PlayButton from '@/components/PlayButton'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Doc } from '@/convex/_generated/dataModel'
-import { formatter, secondsToFilmDuration } from '@/lib/utils'
+import { cn, formatter, secondsToFilmDuration } from '@/lib/utils'
 import { Film, Loader2, Play, Watch } from 'lucide-react'
 import React from 'react'
 import Rating from './Rating'
@@ -11,6 +11,7 @@ import RandomReview from './Review'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import Review from './Review'
+import { useMediaQuery } from '@mantine/hooks'
 
 interface MovieInfoProps {
     film: Doc<'films'>
@@ -20,7 +21,8 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
 
     const reviews = useQuery(api.documents.getReviews, { filmId: film._id })
 
-    console.log(reviews)
+    const isSmall = useMediaQuery('(max-width: 648px)')
+    const isExtraSmall = useMediaQuery('(max-width: 468px)')
 
     if (reviews === undefined) {
         return (
@@ -32,9 +34,9 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
 
     return (
         <div className='col-span-7 flex flex-col items-start space-y-6 ml-8 pt-12 lg:pt-0'>
-            <div className='flex items-center w-full justify-between pr-12'>
+            <div className={cn(`flex items-center w-full justify-between pr-12`, isSmall && 'pr-0')}>
                 <h2 className='text-3xl sm:text-4xl font-extrabold'>{film?.title}</h2>
-                <Button className='text-lg whitespace-nowrap '>Whatch Now <Play className='w-4 h-4 ml-2' /></Button>
+                <Button className={cn(`text-lg whitespace-nowrap `, isExtraSmall && 'rounded-full w-12 h-12 items-center justify-center p-0')}> <span className={cn(``, isExtraSmall && 'hidden')}>Whatch Now</span> <Play className={cn(`w-4 h-4 ml-2`, isExtraSmall && 'w-8 h-8 ml-1')} /></Button>
             </div>
             <Separator className='dark:bg-white' />
             <div className='flex flex-row justify-between gap-6 w-full items-start'>
@@ -47,7 +49,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
                 </div>
                 <div className='flex flex-col space-y-8 items-start w-full flex-[1.5]'>
                     <Rating rating={film.rating!} />
-                    {reviews.length > 0 && <Review review={reviews?.[0]!} />}
+                    {reviews.length > 0 && !isSmall && <Review review={reviews?.[0]!} />}
                 </div>
             </div>
         </div>

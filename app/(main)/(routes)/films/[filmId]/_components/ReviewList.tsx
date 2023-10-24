@@ -1,12 +1,14 @@
 import { Doc } from '@/convex/_generated/dataModel'
 import React from 'react'
 import Review from './Review';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface ReviewListProps {
     reviews: Doc<'reviews'>[];
 }
 
 const ReviewList = ({ reviews }: ReviewListProps) => {
+
 
     return (
         <div>

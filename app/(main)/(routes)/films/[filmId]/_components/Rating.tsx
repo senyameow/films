@@ -1,3 +1,6 @@
+'use client'
+import { cn } from '@/lib/utils'
+import { useMediaQuery } from '@mantine/hooks'
 import { Star } from 'lucide-react'
 import React from 'react'
 
@@ -6,10 +9,12 @@ interface RatingProps {
 }
 
 const Rating = ({ rating }: RatingProps) => {
+    const isSmall = useMediaQuery('(max-width: 648px)')
+
     return (
-        <div className='flex items-center gap-4 pr-12 dark:text-orange-500'>
-            <Star className='w-8 h-8 font-bold ' />
-            <span className='text-3xl sm:text-4xl lg:text-5xl'>{rating}</span>
+        <div className={cn(`flex items-center gap-4 dark:text-orange-500 pr-12`, isSmall && 'justify-end place-self-end pr-4')}>
+            <Star className={cn(`w-8 h-8 font-bold `, isSmall && 'w-12 h-12')} />
+            <span className='text-4xl sm:text-5xl lg:text-6xl'>{rating}</span>
         </div>
     )
 }
