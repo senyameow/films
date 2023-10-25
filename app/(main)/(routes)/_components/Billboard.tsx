@@ -16,7 +16,7 @@ interface BillboardProps {
     userId: Id<'users'>
 }
 
-const Billboard = ({ film }: BillboardProps) => {
+const Billboard = ({ film, userId }: BillboardProps) => {
 
     const dispatch = useAppDispatch()
     const { onOpen } = moreInfoSlice.actions
@@ -39,7 +39,7 @@ const Billboard = ({ film }: BillboardProps) => {
                             Watch Now
                             <Video className='w-4 h-4 ml-2' />
                         </Button>
-                        <Button onClick={() => dispatch(onOpen({ film }))}>
+                        <Button onClick={() => dispatch(onOpen({ film, userId }))}>
                             More Info
                             <Info className='w-4 h-4 ml-2' />
                         </Button>

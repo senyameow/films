@@ -191,3 +191,9 @@ export const createReview = mutation({
         return review
     }
 })
+
+export const allMovies = query({
+    handler: async (ctx) => {
+        return await ctx.db.query('films').collect()
+    }
+})

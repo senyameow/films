@@ -13,6 +13,7 @@ import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import useStoreUserEffect from '@/hooks/use-store-user'
 import Link from 'next/link'
+import Favorites from './Favorites'
 
 interface NavbarProps {
     userId: Id<'users'>
@@ -21,8 +22,18 @@ interface NavbarProps {
 const Navbar = ({ userId }: NavbarProps) => {
 
     const user = useQuery(api.documents.getUser, { id: userId })
-
+    const movies = useQuery(api.documents.allMovies)
     const isScrolled = useScrollTop()
+
+    if (movies === undefined) {
+        return (
+            <div className='flex h-full w-full items-center justify-center'>
+                <Loader2 className='w-12 h-12 animate-spin' />
+            </div>
+        )
+    }
+
+    const favorites = movies?.filter(movie => user?.favouriteIds?.includes(movie._id))
 
     return (
         <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition duration-500`, isScrolled && 'bg-opacity-0')}>
@@ -31,8 +42,8 @@ const Navbar = ({ userId }: NavbarProps) => {
                 <MainNav />
             </div >
             <div className=' ml-auto flex items-center gap-4'>
-                <Search />
                 <Notifications />
+                <Favorites favorites={favorites} />
                 <UserButton afterSignOutUrl='/' />
                 {user === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <div>{user?.name}</div>}
             </div>
