@@ -66,7 +66,7 @@ const MovieList = ({ userId }: MovieListProps) => {
                     }
                     return (
                         <div key={film._id} ref={ref}>
-                            <Movie film={film} />
+                            <Movie film={film} userId={userId} />
                         </div>
                     )
                 })}
@@ -80,7 +80,7 @@ const MovieList = ({ userId }: MovieListProps) => {
                     }
                     return (
                         <div key={film._id} ref={ref}>
-                            <Movie film={film} />
+                            <Movie film={film} userId={userId} />
                         </div>
                     )
                 })}

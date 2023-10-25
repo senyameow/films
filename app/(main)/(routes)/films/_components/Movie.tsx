@@ -1,5 +1,5 @@
 import PlayButton from '@/components/PlayButton';
-import { Doc } from '@/convex/_generated/dataModel'
+import { Doc, Id } from '@/convex/_generated/dataModel'
 import { cn, secondsToFilmDuration } from '@/lib/utils';
 import React, { useRef, useState } from 'react'
 import { Info } from 'lucide-react';
@@ -11,9 +11,10 @@ import Rating from '../[filmId]/_components/Rating';
 
 interface MovieProps {
     film: Doc<'films'>;
+    userId: Id<'users'>
 }
 
-const Movie = ({ film }: MovieProps) => {
+const Movie = ({ film, userId }: MovieProps) => {
 
     const router = useRouter()
 
@@ -43,7 +44,7 @@ const Movie = ({ film }: MovieProps) => {
 
     const onInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation()
-        dispatch(onOpen({ film }))
+        dispatch(onOpen({ film, userId }))
     }
 
     return (

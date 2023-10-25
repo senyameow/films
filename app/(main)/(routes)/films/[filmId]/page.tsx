@@ -11,6 +11,7 @@ import { Id } from '@/convex/_generated/dataModel'
 import { Loader2 } from 'lucide-react'
 import ReviewList from './_components/ReviewList'
 import ModalProvider from '@/providers/ModalProvider'
+import { useUser } from '@clerk/clerk-react'
 
 
 const FilmPage = () => {
@@ -20,9 +21,12 @@ const FilmPage = () => {
     const film = useQuery(api.documents.movie, { id: params?.filmId as Id<'films'> })
     const reviews = useQuery(api.documents.getReviews, { filmId: params.filmId as Id<'films'> })
 
+    const { user } = useUser()
+    const userDB = useQuery(api.documents.getUserByEmail, { email: user?.emailAddresses[0].emailAddress! })
+
     if (film === null) return redirect('/films')
 
-    if (film === undefined || reviews === undefined) {
+    if (film === undefined || reviews === undefined || userDB?._id === undefined) {
         return (
             <div className='flex h-full w-full items-center justify-center'>
                 <Loader2 className='w-12 h-12 animate-spin' />
@@ -40,7 +44,7 @@ const FilmPage = () => {
                     <MovieInfo film={film!} />
                 </div>
                 <Separator className='my-10' />
-                <RelatedMovies filmGenre={film.genre} />
+                <RelatedMovies userId={userDB?._id} filmGenre={film.genre} />
                 <Separator className='my-10' />
                 <ReviewList film={film} reviews={reviews} />
             </div>
