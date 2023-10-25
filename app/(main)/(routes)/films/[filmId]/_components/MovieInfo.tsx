@@ -28,6 +28,8 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
     const isSmall = useMediaQuery('(max-width: 648px)')
     const isExtraSmall = useMediaQuery('(max-width: 468px)')
 
+    console.log(reviews)
+
     if (reviews === undefined) {
         return (
             <div className='flex h-full w-full items-center justify-center'>

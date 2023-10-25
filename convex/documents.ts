@@ -7,10 +7,21 @@ import { useUser } from '@clerk/clerk-react'
 
 export const getUser = query({
     args: {
-        id: v.id('users')
+        id: v.id('users'),
     },
     handler: async (ctx, args) => {
         const user = await ctx.db.get(args.id)
+        return user
+    }
+})
+export const getUserByEmail = query({
+    args: {
+        email: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const user = await ctx.db.query('users').withIndex('by_email').filter(q =>
+            q.eq(q.field('email'), args.email)
+        ).first()
         return user
     }
 })
@@ -145,7 +156,15 @@ export const changeReview = mutation({
         )),
     },
     handler: async (ctx, args) => {
-        // const review 
+        const identity = await ctx.auth.getUserIdentity()
+        if (!identity) throw new Error('Unaithenticated')
+        const review = await ctx.db.get(args.id)
+        if (review === null) throw new Error('Not found')
+        const { id, ...rest } = args
+        const newReview = await ctx.db.patch(args.id, {
+            ...rest
+        })
+        return newReview
     }
 })
 export const createReview = mutation({

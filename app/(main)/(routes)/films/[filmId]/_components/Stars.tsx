@@ -8,7 +8,7 @@ interface StarsProps {
 
 const Stars = ({ stars }: StarsProps) => {
     return (
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 pr-4'>
             {Array(stars).fill(0).map(_ => (
                 <AiFillStar className='w-6 h-6 text-orange-400' />
             ))}

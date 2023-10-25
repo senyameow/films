@@ -5,11 +5,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import useStoreUserEffect from '@/hooks/use-store-user'
 import { reviewSlice } from '@/store/reducers/ReviewStateSlice'
+import { useUser } from '@clerk/clerk-react'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
-import { useMutation } from 'convex/react'
-import { Pencil } from 'lucide-react'
+import { useMutation, useQuery } from 'convex/react'
+import { Loader, Loader2, Pencil, Star } from 'lucide-react'
+import { redirect } from 'next/navigation'
 import React, { useRef, useState } from 'react'
+import { AiFillStar } from 'react-icons/ai'
 
 interface NoReviewProps {
     filmId: Id<'films'>
@@ -18,39 +22,38 @@ interface NoReviewProps {
 const NoReview = ({ filmId }: NoReviewProps) => {
 
     const dispatch = useAppDispatch()
-    const { id } = useAppSelector(state => state.user)
+    // const { id } = useAppSelector(state => state.user)
     const { editing } = useAppSelector(state => state.review)
     const { onEdit, onClose } = reviewSlice.actions
 
-    const [content, setContent] = useState('')
+    const { user } = useUser()
+    const userDB = useQuery(api.documents.getUserByEmail, { email: user?.emailAddresses[0].emailAddress! })
+
 
     const createReview = useMutation(api.documents.createReview)
-    const changeReview = useMutation(api.documents.changeReview)
-
     const [editingLocal, setEditingLocal] = useState(false)
-
-    if (!id) {
-        return null
-    }
-
     const inputRef = useRef<HTMLTextAreaElement>(null)
 
-    const onCreate = async () => {
+
+    if (userDB?._id === undefined) {
+        return (
+            <div className='flex h-full w-full items-center justify-center'>
+                <Loader2 className='w-12 h-12 animate-spin' />
+            </div>
+        )
+    }
+
+    const onCreate = async (star: 1 | 2 | 3 | 4 | 5) => {
         const res = await createReview({
-            userId: id,
-            filmId
+            userId: userDB._id,
+            filmId,
+            stars: star
         })
         setEditingLocal(true)
         dispatch(onEdit())
     }
 
-    // const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //     setContent(e.target.value)
-    //     changeReview({
-    //         content,
-    //         id: 
-    //     })
-    // }
+
 
     return (
         <div className='w-full flex items-center flex-col justify-center gap-8 '>
@@ -61,11 +64,19 @@ const NoReview = ({ filmId }: NoReviewProps) => {
                 <Card className='bg-transparent p-0 w-full group relative min-w-fit h-full'>
                     <CardContent className='px-2'>
                         <ScrollArea className='h-[140px] max-w-full p-4'>
-                            <Textarea onBlur={() => setEditingLocal(false)} value={content} onKeyDown={() => { }} onChange={() => { }} ref={inputRef} className='resize-none text-lg w-full h-full font-bold bg-transparent py-0 focus-visible:border-none focus-within:ring-0 focus-within:ring-offset-0 outline-none focus-visible:right-0 ring-0 focus-visible:ring-offset-0 ring-offset-0 border-none focus-visible:border-0 focus-visible:ring-0 scrollbar scrollbar-thumb-gray-500' />
+                            <Textarea onBlur={() => setEditingLocal(false)} value={''} onKeyDown={() => { }} onChange={() => { }} ref={inputRef} className='resize-none text-lg w-full h-full font-bold bg-transparent py-0 focus-visible:border-none focus-within:ring-0 focus-within:ring-offset-0 outline-none focus-visible:right-0 ring-0 focus-visible:ring-offset-0 ring-offset-0 border-none focus-visible:border-0 focus-visible:ring-0 scrollbar scrollbar-thumb-gray-500' />
                         </ScrollArea>
                     </CardContent>
                 </Card>
-            ) : <Button onClick={onCreate}><Pencil /></Button>}
+            ) : (
+                <div className='flex items-center gap-2 w-fit'>
+                    <button onClick={() => onCreate(1)}><AiFillStar className={`w-8 h-8 text-xl hover:block hover:text-orange-400`} /></button>
+                    <button onClick={() => onCreate(2)}><AiFillStar className={`w-8 h-8 text-xl hover:block hover:text-orange-400`} /></button>
+                    <button onClick={() => onCreate(3)}><AiFillStar className={`w-8 h-8 text-xl hover:block hover:text-orange-400`} /></button>
+                    <button onClick={() => onCreate(4)}><AiFillStar className={`w-8 h-8 text-xl hover:block hover:text-orange-400`} /></button>
+                    <button onClick={() => onCreate(5)}><AiFillStar className={`w-8 h-8 text-xl hover:block hover:text-orange-400`} /></button>
+                </div>
+            )}
 
         </div>
     )

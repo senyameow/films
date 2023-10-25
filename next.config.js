@@ -2,7 +2,8 @@
 const nextConfig = {
     images: {
         domains: [
-            'upload.wikimedia.org'
+            'upload.wikimedia.org',
+            'img.clerk.com'
         ]
     }
 }
