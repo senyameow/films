@@ -5,7 +5,7 @@ import VideoPlayer from "./_components/VideoPlayer";
 export default function Home() {
   return (
     <div className="min-h-full flex flex-col overflow-x-hidden">
-      <div className="flex h-full flex-col items-center justify-center flex-1 gap-y-8 text-center px-6 pb-10">
+      <div className="flex h-full flex-col items-center justify-center flex-1 gap-y-8 text-center px-6 pb-24">
         <Heading />
         <VideoPlayer />
       </div>
