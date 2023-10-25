@@ -55,7 +55,7 @@ const MovieInfo = ({ film }: MovieInfoProps) => {
                     <Rating rating={film.rating!} />
                     {reviews.length > 0 && !isSmall && <Review review={reviews?.[0]!} />}
                     {reviews.length === 0 && (
-                        <NoReview />
+                        <NoReview filmId={film._id} />
                     )}
                 </div>
             </div>

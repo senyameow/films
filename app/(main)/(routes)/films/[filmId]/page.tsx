@@ -40,7 +40,7 @@ const FilmPage = () => {
                 <Separator className='my-10' />
                 <RelatedMovies filmGenre={film.genre} />
                 <Separator className='my-10' />
-                <ReviewList reviews={reviews} />
+                <ReviewList filmId={film._id} reviews={reviews} />
             </div>
         </div>
     )

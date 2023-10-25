@@ -131,3 +131,44 @@ export const relatedMovies = query({
         return await ctx.db.query('films').withIndex('by_genre').take(4)
     }
 })
+
+export const changeReview = mutation({
+    args: {
+        id: v.id('reviews'),
+        content: v.optional(v.string()),
+        stars: v.optional(v.union(
+            v.literal(1),
+            v.literal(2),
+            v.literal(3),
+            v.literal(4),
+            v.literal(5),
+        )),
+    },
+    handler: async (ctx, args) => {
+        // const review 
+    }
+})
+export const createReview = mutation({
+    args: {
+        userId: v.id('users'),
+        filmId: v.id('films'),
+        content: v.optional(v.string()),
+        stars: v.optional(v.union(
+            v.literal(1),
+            v.literal(2),
+            v.literal(3),
+            v.literal(4),
+            v.literal(5),
+        )),
+    },
+    handler: async (ctx, args) => {
+        if (!args.userId) throw new Error('Unauthorized')
+        const review = await ctx.db.insert('reviews', {
+            content: args.content,
+            stars: args.stars!,
+            userId: args.userId,
+            filmId: args.filmId
+        })
+        return review
+    }
+})
