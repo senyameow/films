@@ -36,7 +36,7 @@ const Navbar = ({ userId }: NavbarProps) => {
     const favorites = movies?.filter(movie => user?.favouriteIds?.includes(movie._id))
 
     return (
-        <div className={cn(`flex w-full px-12 py-2 bg-neutral-700 h-full items-center transition duration-500`, isScrolled && 'bg-opacity-0')}>
+        <div className={cn(`flex w-full px-12 py-2 bg-neutral-900 h-full items-center transition duration-500`, isScrolled && 'bg-opacity-70')}>
             < div className='flex flex-row items-center gap-3' >
                 <Link href='/films'><Logo className='text-2xl mr-8' /></Link>
                 <MainNav />

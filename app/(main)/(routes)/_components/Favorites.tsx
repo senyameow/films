@@ -23,7 +23,7 @@ const Favorites = ({ favorites, userId }: FavoritesProps) => {
         <Popover>
             <PopoverTrigger className='relative'>
                 <AiFillHeart className='w-7 h-7 hover:text-red-500 transition' role='button' />
-                <div className='w-5 h-5 flex items-center justify-center rounded-full absolute bg-rose-400 text-sm -top-2 -right-2' >{favorites.length}</div>
+                <div className='w-5 h-5 flex items-center justify-center rounded-full absolute bg-rose-600 text-sm -top-2 -right-2' >{favorites.length}</div>
             </PopoverTrigger>
             <PopoverContent className="w-96 min-h-[200px]">
                 <div className="grid gap-4">

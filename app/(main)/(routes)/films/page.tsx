@@ -25,7 +25,7 @@ const Home = () => {
 
     return (
         <>
-            <div className='absolute top-0 w-full h-full'>
+            <div className='absolute top-0 w-full h-full pt-16'>
                 <ModalProvider />
                 <Billboard film={film} userId={userId} />
                 <MovieList userId={userId} />
