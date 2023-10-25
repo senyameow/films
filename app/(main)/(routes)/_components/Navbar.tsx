@@ -43,7 +43,7 @@ const Navbar = ({ userId }: NavbarProps) => {
             </div >
             <div className=' ml-auto flex items-center gap-4'>
                 <Notifications />
-                <Favorites favorites={favorites} />
+                <Favorites userId={userId} favorites={favorites} />
                 <UserButton afterSignOutUrl='/' />
                 {user === undefined ? <Loader2 className='w-4 h-4 animate-spin' /> : <div>{user?.name}</div>}
             </div>
