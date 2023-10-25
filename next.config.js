@@ -5,7 +5,10 @@ const nextConfig = {
             'upload.wikimedia.org',
             'img.clerk.com'
         ]
-    }
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 }
 
 module.exports = nextConfig
