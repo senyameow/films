@@ -21,7 +21,7 @@ interface FavoritesProps {
 const Favorites = ({ favorites, userId }: FavoritesProps) => {
     return (
         <Popover>
-            <PopoverTrigger className='relative'>
+            <PopoverTrigger className='relative mr-3'>
                 <AiFillHeart className='w-7 h-7 hover:text-red-500 transition' role='button' />
                 <div className='w-5 h-5 flex items-center justify-center rounded-full absolute bg-rose-600 text-sm -top-2 -right-2' >{favorites.length}</div>
             </PopoverTrigger>

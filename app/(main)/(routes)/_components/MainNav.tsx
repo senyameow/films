@@ -54,7 +54,7 @@ const MainNav = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => 
         <>
             <nav className={cn('items-center sm:gap-[15px] lg:gap-[40px] hidden sm:flex', className)}>
                 {routes.map(route => (
-                    <Link key={route.href} href={route.href} className={cn(`text-[13px] font-[400] hover:text-primary`, route.active ? 'text-black dark:text-white' : 'text-muted-foreground')}>
+                    <Link key={route.href} href={route.href} className={cn(`lg:text-sm sm:text-[13px] font-[400] hover:text-primary`, route.active ? 'text-black dark:text-white' : 'text-muted-foreground')}>
                         {route.label}
                     </Link>
                 ))}
