@@ -41,7 +41,7 @@ const ReviewList = ({ reviews, film }: ReviewListProps) => {
                 <h2 className='pb-6 text-xl sm:text-2xl xl:text-3xl font-bold'>What other people say</h2>
                 {!isAlready && <Button onClick={() => { dispatch(onOpen({ film, userId: userDB._id })) }}>Add Review<Pencil className='w-4 h-4 ml-2' /></Button>}
             </div>
-            {reviews.length === 0 ? <NoReview filmId={film._id} /> : <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+            {reviews.length === 0 ? <NoReview filmId={film._id} /> : <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
                 {reviews?.map(review => (
                     <Review key={review._id} review={review} />
                 ))}

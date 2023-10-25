@@ -18,6 +18,8 @@ import { AiFillStar } from 'react-icons/ai'
 import { useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 
 const CreateReview = () => {
@@ -28,18 +30,26 @@ const CreateReview = () => {
     const createReview = useMutation(api.documents.createReview)
     const [content, setContent] = useState('')
 
-    console.log(isOpen)
+    const [isLoading, setIsLoading] = useState(false)
 
     const [stars, setStars] = useState<1 | 2 | 3 | 4 | 5 | undefined>(undefined)
 
     const onCreate = async () => {
-        const res = await createReview({
-            userId: userId!,
-            filmId: film?._id!,
-            stars,
-            content
-        })
-        onClose()
+        setIsLoading(true)
+        try {
+            await createReview({
+                userId: userId!,
+                filmId: film?._id!,
+                stars,
+                content
+            })
+            toast.success(`thanks`)
+        } catch (error) {
+            toast.error('something went wrong')
+        } finally {
+            dispatch(onClose())
+            setIsLoading(false)
+        }
     }
 
     const onStar = (star: 1 | 2 | 3 | 4 | 5) => {
@@ -48,7 +58,6 @@ const CreateReview = () => {
         if (star === stars) {
             setStars(undefined)
         }
-
     }
 
     return (
@@ -71,7 +80,10 @@ const CreateReview = () => {
                 </ScrollArea>
                 <div className='flex items-center justify-between w-full'>
                     <Button variant={'outline'}>Cancel</Button>
-                    <Button onClick={onCreate}>Submit</Button>
+                    <Button disabled={!stars || isLoading} onClick={onCreate}>
+                        {isLoading && <Loader2 className='w-4 h-4 mr-2' />}
+                        Submit
+                    </Button>
                 </div>
             </DialogContent>
 
