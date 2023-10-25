@@ -26,25 +26,27 @@ const CreateReview = () => {
     const dispatch = useAppDispatch()
     const { onClose } = createReviewSlice.actions
     const createReview = useMutation(api.documents.createReview)
+    const [content, setContent] = useState('')
 
     console.log(isOpen)
 
-    const [stars, setStars] = useState<1 | 2 | 3 | 4 | 5 | null>(null)
+    const [stars, setStars] = useState<1 | 2 | 3 | 4 | 5 | undefined>(undefined)
 
-    const onCreate = async (star: 1 | 2 | 3 | 4 | 5) => {
+    const onCreate = async () => {
         const res = await createReview({
             userId: userId!,
             filmId: film?._id!,
-            stars: star
+            stars,
+            content
         })
+        onClose()
     }
-    console.log(stars)
 
     const onStar = (star: 1 | 2 | 3 | 4 | 5) => {
         console.log(stars)
         setStars(star)
         if (star === stars) {
-            setStars(null)
+            setStars(undefined)
         }
 
     }
@@ -58,15 +60,19 @@ const CreateReview = () => {
                     </div>
                 </DialogHeader>
                 <div className='flex items-center gap-2 w-fit'>
-                    <button onClick={() => onStar(1)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== null && stars >= 1 && 'text-orange-400')} /></button>
-                    <button onClick={() => onStar(2)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== null && stars >= 2 && 'text-orange-400')} /></button>
-                    <button onClick={() => onStar(3)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== null && stars >= 3 && 'text-orange-400')} /></button>
-                    <button onClick={() => onStar(4)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== null && stars >= 4 && 'text-orange-400')} /></button>
-                    <button onClick={() => onStar(5)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== null && stars === 5 && 'text-orange-400')} /></button>
+                    <button onClick={() => onStar(1)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== undefined && stars >= 1 && 'text-orange-400')} /></button>
+                    <button onClick={() => onStar(2)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== undefined && stars >= 2 && 'text-orange-400')} /></button>
+                    <button onClick={() => onStar(3)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== undefined && stars >= 3 && 'text-orange-400')} /></button>
+                    <button onClick={() => onStar(4)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== undefined && stars >= 4 && 'text-orange-400')} /></button>
+                    <button onClick={() => onStar(5)}><AiFillStar className={cn(`w-8 h-8 text-xl hover:block hover:text-orange-400`, stars !== undefined && stars === 5 && 'text-orange-400')} /></button>
                 </div>
-                <ScrollArea className='w-full h-full'>
-                    <Textarea />
+                <ScrollArea className='w-full h-[300px]'>
+                    <Textarea value={content} onChange={(e) => setContent(e.target.value)} className='resize-none text-lg w-full h-[300px] font-bold bg-transparent py-3 focus-within:ring-0 focus-within:ring-offset-0 outline-none focus-visible:right-0 ring-0 focus-visible:ring-offset-0 ring-offset-0 focus-visible:ring-0 scrollbar  scrollbar-thumb-gray-500 border dark:border-white border-neutral-400' />
                 </ScrollArea>
+                <div className='flex items-center justify-between w-full'>
+                    <Button variant={'outline'}>Cancel</Button>
+                    <Button onClick={onCreate}>Submit</Button>
+                </div>
             </DialogContent>
 
         </Dialog>

@@ -46,6 +46,8 @@ const Review = ({ review }: ReviewProps) => {
 
     const isOwn = userDB?._id === review.userId
 
+    const canEdit = isOwn && editing
+
     // if (userDB?._id === undefined) {
     //     return (
     //         <div className='flex h-full w-full items-center justify-center'>
@@ -106,12 +108,12 @@ const Review = ({ review }: ReviewProps) => {
                 </CardTitle>
             </CardHeader>
             <CardContent className='px-2'>
-                {review.content && !editing && < ScrollArea className='h-[140px] w-full px-4'>
+                {review.content && !canEdit && < ScrollArea className='h-[140px] w-full px-4'>
                     <div className='w-full max-h-full text-sm'>
                         {review.content}
                     </div>
                 </ScrollArea>}
-                {editing && (
+                {editing && canEdit && (
                     < ScrollArea className='h-[140px] w-full px-4'>
                         <div className='w-full max-h-full text-sm'>
                             <Textarea onBlur={onBlur} value={content || review.content} onKeyDown={onSave} onChange={onChangeContent} ref={inputRef} className='resize-none text-lg w-full h-full font-bold bg-transparent py-0 focus-visible:border-none focus-within:ring-0 focus-within:ring-offset-0 outline-none focus-visible:right-0 ring-0 focus-visible:ring-offset-0 ring-offset-0 border-none focus-visible:border-0 focus-visible:ring-0 scrollbar scrollbar-thumb-gray-500' />
