@@ -1,4 +1,5 @@
 'use client'
+import CreateReview from '@/components/modals/CreateReviewModal'
 import MoreInfoModal from '@/components/modals/MoreInfoModal'
 import React, { useEffect, useState } from 'react'
 
@@ -15,6 +16,7 @@ const ModalProvider = () => {
     return (
         <>
             <MoreInfoModal />
+            <CreateReview />
         </>
     )
 }

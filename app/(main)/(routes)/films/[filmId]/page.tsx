@@ -10,6 +10,7 @@ import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
 import { Loader2 } from 'lucide-react'
 import ReviewList from './_components/ReviewList'
+import ModalProvider from '@/providers/ModalProvider'
 
 
 const FilmPage = () => {
@@ -32,6 +33,7 @@ const FilmPage = () => {
 
     return (
         <div className='max-w-7xl mx-auto'>
+            <ModalProvider />
             <div className='px-2 py-10 sm:px-2 lg:px-4'>
                 <div className='lg:grid lg:grid-cols-12 lg:items-start gap-6 justify-between'>
                     <Gallery images={film?.screens!} />
@@ -40,7 +42,7 @@ const FilmPage = () => {
                 <Separator className='my-10' />
                 <RelatedMovies filmGenre={film.genre} />
                 <Separator className='my-10' />
-                <ReviewList filmId={film._id} reviews={reviews} />
+                <ReviewList film={film} reviews={reviews} />
             </div>
         </div>
     )

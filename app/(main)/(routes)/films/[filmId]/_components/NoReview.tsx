@@ -27,6 +27,7 @@ const NoReview = ({ filmId }: NoReviewProps) => {
     const { onEdit, onClose } = reviewSlice.actions
 
     const { user } = useUser()
+    console.log(user)
     const userDB = useQuery(api.documents.getUserByEmail, { email: user?.emailAddresses[0].emailAddress! })
 
 

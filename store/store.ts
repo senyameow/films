@@ -3,12 +3,14 @@ import moreInfoSlice from './reducers/MoreInfoSlice';
 import userSlice from './reducers/UsersSlice';
 import filmSlice from './reducers/MovieSlice';
 import reviewSlice from './reducers/ReviewStateSlice';
+import createReviewSlice from './reducers/CreateReviewSlice';
 
 const rootReducer = combineReducers({
     more: moreInfoSlice,
     user: userSlice,
     film: filmSlice,
     review: reviewSlice,
+    create: createReviewSlice
 })
 
 export const setupStore = () => {
