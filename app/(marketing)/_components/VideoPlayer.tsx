@@ -1,12 +1,21 @@
 'use client'
 import { api } from '@/convex/_generated/api'
 import { useQuery } from 'convex/react'
+import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
 const VideoPlayer = () => {
 
     const random = useQuery(api.documents.getRandomFilm)
+
+    if (random === undefined) {
+        return (
+            <div className='flex h-full w-full items-center justify-center'>
+                <Loader2 className='w-12 h-12 animate-spin' />
+            </div>
+        )
+    }
 
     return (
         <div className=' flex-row gap-3 items-center'>
