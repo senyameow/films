@@ -26,7 +26,7 @@ const Navbar = () => {
                     )}
                     {!isAuthenticated && !isLoading && (
                         <>
-                            <SignInButton mode={'redirect'}>Log In</SignInButton>
+                            <SignInButton mode={'modal'}>Log In</SignInButton>
                         </>
                     )}
                     <ModeToggle />

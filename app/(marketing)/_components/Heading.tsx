@@ -29,7 +29,7 @@ const Heading = () => {
                     </Button>
                 </Link>}
                 {!isAuthenticated && !isLoading && (
-                    <SignInButton>
+                    <SignInButton mode='modal'>
                         <Button className='font-semibold gap-2'>
                             Get WTFlix Free
                             <ArrowRight className='text-white dark:text-black font-bold w-4 h-4' />
